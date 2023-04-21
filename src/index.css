@@ -2,3 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+#header img {
+  width: 100px;
+}
+
+#header a {
+  text-decoration: none;
+  color: black;
+}
+
+#header {
+  background-color: #e0e0e0;
+}
+
+.circle {
+  border-radius: 50%;
+  font-size: 12px;
+  width: 11px;
+  height: 11px;
+  padding: 11px;
+}
+
+.card {
+  width: 380px;
+  height: 300px;
+}
+
+.description p {
+  text-align: justify;
+} 
