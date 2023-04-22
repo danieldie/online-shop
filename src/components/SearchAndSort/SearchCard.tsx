@@ -5,6 +5,8 @@ const SearchCard: React.FC = () => {
   const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch: string = e.target.value
     setSearch(newSearch)
+    console.log(newSearch);
+    
   }
   return (
     <div className='border-2 border-gray-500 rounded-full px-2 py-2 flex items-center justify-start h-16 w-full'>

@@ -19,7 +19,7 @@ const addCardHandler = (id:number) => {
 
 const ProductCard: React.FC<Card> = (props) => {
   return (
-    <article className='h-[380px] w-[300px] shadow-gray-300 shadow-lg p-0 shrink-0 m-3 flex flex-col rounded-sm'>
+    <article className='h-[450px] w-[350px] shadow-gray-300 shadow-lg p-0 shrink-0 m-3 flex flex-col rounded-sm'>
       <figure className='w-full h-2/5'>
         <img
           alt={props.title}
