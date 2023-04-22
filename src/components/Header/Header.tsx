@@ -1,9 +1,8 @@
 import logo from './logo.png'
 
 export default function Header() {
-  // flex justify-between items-center
   return (
-    <header id='header' className='grid grid-cols-3 px-4 sticky top-0'>
+    <header id='header' className='grid grid-cols-3 px-5 sticky top-0 z-10'>
       <div id='user-detail' className='flex justify-start items-center'>
         <div className='flex items-center justify-start'>
           <i className='fa-regular fa-circle-user fs-2 fa-2xl'></i>
