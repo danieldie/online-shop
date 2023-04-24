@@ -1,13 +1,26 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import { getAll } from '../../services/products'
+import { Card } from '../Card/ProductCard'
 
-const SearchCard: React.FC = () => {
+const SearchCard: React.FC<{
+  setProductList: React.Dispatch<React.SetStateAction<Card[]>>
+}> = ({setProductList}) => {
   const [search, setSearch] = useState<string>('')
   const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch: string = e.target.value
     setSearch(newSearch)
-    console.log(newSearch);
-    
+    // console.log(newSearch);
   }
+  useEffect(() => {
+    let timer = setTimeout(async () => {
+      const api = await getAll()
+      const regex = new RegExp(search, 'i')
+      setProductList(api.filter(c => regex.test(c.title)))
+    }, 1000)
+    
+    return () => {clearTimeout(timer)}
+  }, [setProductList, search])
+
   return (
     <div className='border-2 border-gray-500 rounded-full px-2 py-2 flex items-center justify-start h-16 w-full'>
       <i className='fa-solid fa-magnifying-glass mx-2 text-gray-400 fa-lg'></i>
