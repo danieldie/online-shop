@@ -1,9 +1,8 @@
-interface Card {
+export interface Card {
   id: number
   title: string
   price: number
   description: string
-
   category: string
   image: string
   rating: {
@@ -12,8 +11,13 @@ interface Card {
   }
 }
 
+export interface Cart {
+  id: number
+  quantity: number 
+}
+
 const addCardHandler = (id:number) => {
-    console.log(id);
+    console.log(`item ${id} added to cart`);
     
 }
 

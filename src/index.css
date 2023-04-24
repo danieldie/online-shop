@@ -31,3 +31,13 @@
 .description p {
   text-align: justify;
 }
+
+td,
+th {
+  text-align: center;
+  padding: 1rem;
+}
+
+tbody tr.window:nth-child(4n+1) {
+  background-color: #e6e6e6;
+}
