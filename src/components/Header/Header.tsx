@@ -1,6 +1,7 @@
 import logo from './logo.png'
 import { useState, useEffect } from 'react'
 import { getOne } from '../../services/users'
+import { Cart } from '../Card/ProductCard'
 
 export interface User {
   address: {
@@ -25,7 +26,11 @@ export interface User {
   __v: number
 }
 
-export default function Header() {
+ const Header:React.FC<{cart:Cart[]}> = (props) => {
+  const cartQuantity = props.cart.reduce((total, current) => {
+    return total + current.quantity
+  }, 0)
+
   const [user, setUser] = useState<User>()
   useEffect(() => {
     ;(async () => {
@@ -34,6 +39,7 @@ export default function Header() {
       setUser(userApi)
     })()
   }, [])
+
   return (
     <header id='header' className='grid grid-cols-3 px-5 sticky top-0 z-10'>
       <div id='user-detail' className='flex justify-start items-center'>
@@ -64,10 +70,12 @@ export default function Header() {
             className='text-white bg-red-600 circle flex items-center justify-center'
             id='cart-number'
           >
-            0
+            {cartQuantity}
           </div>
         </div>
       </div>
     </header>
   )
 }
+
+export default Header
