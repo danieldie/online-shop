@@ -7,3 +7,8 @@ export const getAll = async () => {
   const { data } = await axios.get<Card[]>(`${baseUrl}`)
   return data
 }
+
+export const getCategories = async () => {
+  const { data } = await axios.get<string[]>(`${baseUrl}/categories`)
+  return data
+}

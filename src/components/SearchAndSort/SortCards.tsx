@@ -1,7 +1,18 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { getCategories } from '../../services/products'
 
-const SortCards: React.FC<{ list: string[] }> = ({ list }) => {
+const SortCards: React.FC = () => {
+  const [list, setList] = useState<string[]>([])
+  
+  useEffect(() => {
+    ;(async () => {
+      const catApi = await getCategories()
+      // console.log(catApi)
+      setList(['all', ...catApi])
+    })()
+  }, [])
   const revealDropdownRef = useRef<boolean>(false)
+
   const showListHandler = () => {
     if (!revealDropdownRef.current) {
       const ul = document.querySelector('#dropdown-ul')
@@ -35,7 +46,7 @@ const SortCards: React.FC<{ list: string[] }> = ({ list }) => {
         className='dropdown px-4 md:px-2 flex items-center justify-between text-black bg-white border-0 border-b-2 border-gray-400'
         type='button'
         onClick={showListHandler}
-        data-dropdown-toggle="dropdown"
+        data-dropdown-toggle='dropdown'
       >
         Category
         <i className='fa-solid fa-caret-up hidden' id='up'></i>
@@ -45,7 +56,7 @@ const SortCards: React.FC<{ list: string[] }> = ({ list }) => {
         className='hidden dropdown-menu absolute transition-all top-16 right-0 '
         id='dropdown-ul'
       >
-        {list.map((i) => (
+        {list!.map((i) => (
           <li key={i}>
             <button
               className='w-full bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'

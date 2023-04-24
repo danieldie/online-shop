@@ -9,9 +9,7 @@ export default function SearchAndSort() {
     >
       <SearchCard />
 
-      <SortCards
-        list={['all', 'one', 'two', 'three', 'fourrrrrrrrrrrrrrrrrrr', 'fiveeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee']}
-      />
+      <SortCards />
 
       <span className=''></span>
     </header>
