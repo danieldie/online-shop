@@ -1,7 +1,8 @@
 import SearchCard from './SearchCard'
 import SortCards from './SortCards'
+import { Card } from '../Card/ProductCard'
 
-export default function SearchAndSort() {
+const SearchAndSort: React.FC<{setProductList:React.Dispatch<React.SetStateAction<Card[]>>}> = (props) => {
   return (
     <header
       id='cards-limit'
@@ -9,9 +10,11 @@ export default function SearchAndSort() {
     >
       <SearchCard />
 
-      <SortCards />
+      <SortCards setProductList={props.setProductList}/>
 
       <span className=''></span>
     </header>
   )
 }
+
+export default SearchAndSort

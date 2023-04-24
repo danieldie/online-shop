@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from 'react'
-import { getCategories } from '../../services/products'
+import { getAllCategories, getAll, getOneCategory } from '../../services/products'
+import { Card } from '../Card/ProductCard'
 
-const SortCards: React.FC = () => {
+const SortCards: React.FC<{
+  setProductList: React.Dispatch<React.SetStateAction<Card[]>>
+}> = (props) => {
   const [list, setList] = useState<string[]>([])
-  
   useEffect(() => {
     ;(async () => {
-      const catApi = await getCategories()
+      const catApi = await getAllCategories()
       // console.log(catApi)
       setList(['all', ...catApi])
     })()
@@ -35,8 +37,15 @@ const SortCards: React.FC = () => {
     }
   }
 
-  const sortCardsHandler = (sort: string) => {
-    console.log(sort)
+  const sortCardsHandler = async (category: string) => {
+    if (category === 'all' || !list.includes(category)){
+      const allProductsApi = await getAll()
+      props.setProductList(allProductsApi)
+    } else {
+      const oneCategoryApi = await getOneCategory(category)
+      props.setProductList(oneCategoryApi)
+    }
+    
   }
 
   return (

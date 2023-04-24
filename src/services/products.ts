@@ -8,7 +8,12 @@ export const getAll = async () => {
   return data
 }
 
-export const getCategories = async () => {
+export const getAllCategories = async () => {
   const { data } = await axios.get<string[]>(`${baseUrl}/categories`)
+  return data
+}
+
+export const getOneCategory = async (category:string) => {
+  const { data } = await axios.get<Card[]>(`${baseUrl}/category/${category}`)
   return data
 }
