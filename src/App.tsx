@@ -2,7 +2,6 @@ import CardList from './components/CardList/CardList';
 import CartList from './components/CartList/CartList';
 import Header from './components/Header/Header';
 import SearchAndSort from './components/SearchAndSort/SearchAndSort';
-
 import {Cart} from './components/Card/ProductCard'
 
 function App() {
