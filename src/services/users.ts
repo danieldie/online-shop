@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { User } from '../components/Header/Header'
+import { User } from '../types/types'
 
 const baseUrl = 'https://fakestoreapi.com/users'
 

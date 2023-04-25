@@ -1,18 +1,16 @@
-import { useRef, useState, useEffect } from 'react'
-import { getAllCategories, getAll, getOneCategory } from '../../services/products'
-import { Card } from '../Card/ProductCard'
+import { useRef } from 'react'
+import { Card } from '../../types/types'
+import { useAllCategoriesApi, useProductApi } from '../Pages/RootLayout'
 
 const SortCards: React.FC<{
   setProductList: React.Dispatch<React.SetStateAction<Card[]>>
 }> = (props) => {
-  const [list, setList] = useState<string[]>([])
-  useEffect(() => {
-    ;(async () => {
-      const catApi = await getAllCategories()
-      // console.log(catApi)
-      setList(['all', ...catApi])
-    })()
-  }, [])
+  const { allCategoriesApi } = useAllCategoriesApi()
+  const { productApi } = useProductApi()
+
+  const list = ['all categories', ...allCategoriesApi]
+
+  const categoryName = useRef<string>(list[0])
   const revealDropdownRef = useRef<boolean>(false)
 
   const showListHandler = () => {
@@ -38,26 +36,25 @@ const SortCards: React.FC<{
   }
 
   const sortCardsHandler = async (category: string) => {
-    if (category === 'all' || !list.includes(category)){
-      const allProductsApi = await getAll()
-      props.setProductList(allProductsApi)
+    if (category === 'all categories' || !list.includes(category.toLowerCase())){
+      props.setProductList(productApi)
+      categoryName.current = list[0]
     } else {
-      const oneCategoryApi = await getOneCategory(category)
-      props.setProductList(oneCategoryApi)
+      props.setProductList(productApi.filter(p => p.category === category))
+      categoryName.current = category
     }
-    
   }
 
   return (
     <div className='grid w-full h-16 relative'>
       <button
         id='category-button'
-        className='dropdown px-4 md:px-2 flex items-center justify-between text-black bg-white border-0 border-b-2 border-gray-400'
+        className='capitalize dropdown px-4 md:px-2 flex items-center justify-between text-black bg-white border-0 border-b-2 border-gray-400'
         type='button'
         onClick={showListHandler}
         data-dropdown-toggle='dropdown'
       >
-        Category
+        {categoryName.current}
         <i className='fa-solid fa-caret-up hidden' id='up'></i>
         <i className='fa-solid fa-caret-down' id='down'></i>
       </button>
@@ -68,7 +65,7 @@ const SortCards: React.FC<{
         {list!.map((i) => (
           <li key={i}>
             <button
-              className='w-full bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
+              className='capitalize w-full bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
               onClick={() => sortCardsHandler(i)}
             >
               {i}

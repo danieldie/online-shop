@@ -1,4 +1,4 @@
-import { Card, Cart } from '../Card/ProductCard'
+import { Card, Cart } from '../../types/types'
 
 const CartItem: React.FC<{
   cart: Card | undefined

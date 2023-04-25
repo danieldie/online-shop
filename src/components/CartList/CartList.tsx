@@ -1,19 +1,12 @@
-import { Cart, Card } from '../Card/ProductCard'
+import { Card, Cart } from '../../types/types'
 import CartItem from './CartItem'
-import { getAll } from '../../services/products'
-import { useEffect, useState } from 'react'
+import { useProductApi } from '../Pages/RootLayout'
 
 const CartList: React.FC<{
   cart: Cart[]
   setCart: React.Dispatch<React.SetStateAction<Cart[]>>
 }> = (props) => {
-  const [api, setApi] = useState<Card[]>([])
-  useEffect(() => {
-    ;(async () => {
-      const res = await getAll()
-      setApi(res)
-    })()
-  }, [])
+  const { productApi:api } = useProductApi()
 
   const productFinderHandler = (id: number): Card | undefined => {
     const card = api.find((c) => c.id === id)
@@ -28,7 +21,7 @@ const CartList: React.FC<{
 
   return (
     <main>
-      <table className=' my-2 mx-auto'>
+      <table className=' my-10 mx-auto'>
         <thead className='bg-[#9e9e9e] text-white font-sm px-5 hidden lg:table-header-group '>
           <tr className='border-2 border-[#747474]'>
             <th className=''>number</th>

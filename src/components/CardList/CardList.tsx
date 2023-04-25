@@ -1,12 +1,14 @@
 import ProductCard from '../Card/ProductCard'
-import { Card, Cart } from '../Card/ProductCard'
+import { Card, Cart } from '../../types/types'
 
-const CardList: React.FC<{productList:Card[], setCart: React.Dispatch<React.SetStateAction<Cart[]>>}> = (props) => {
-
+const CardList: React.FC<{
+  productList: Card[]
+  setCart: React.Dispatch<React.SetStateAction<Cart[]>>
+}> = (props) => {
   return (
     <main className='flex flex-wrap justify-around items-center gap-x-5 gap-y-3 mb-10'>
       {props.productList.map((p) => (
-        <ProductCard {...p} key={p.id} setCart={props.setCart}/>
+        <ProductCard {...p} key={p.id} setCart={props.setCart} />
       ))}
     </main>
   )

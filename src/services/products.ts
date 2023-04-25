@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Card } from '../components/Card/ProductCard'
+import { Card } from '../types/types'
 
 const baseUrl = 'https://fakestoreapi.com/products'
 

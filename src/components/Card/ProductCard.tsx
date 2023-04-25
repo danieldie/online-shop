@@ -1,20 +1,4 @@
-export interface Card {
-  id: number
-  title: string
-  price: number
-  description: string
-  category: string
-  image: string
-  rating: {
-    rate: number
-    count: number
-  }
-}
-
-export interface Cart {
-  id: number
-  quantity: number
-}
+import { Card, Cart } from '../../types/types'
 
 interface Pcard extends Card {
   setCart: React.Dispatch<React.SetStateAction<Cart[]>>

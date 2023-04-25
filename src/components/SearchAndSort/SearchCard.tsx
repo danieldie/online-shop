@@ -1,25 +1,34 @@
-import { useState,useEffect } from 'react'
-import { getAll } from '../../services/products'
-import { Card } from '../Card/ProductCard'
+import { useState, useEffect } from 'react'
+import { Card } from '../../types/types'
+import { useProductApi } from '../Pages/RootLayout'
 
 const SearchCard: React.FC<{
   setProductList: React.Dispatch<React.SetStateAction<Card[]>>
-}> = ({setProductList}) => {
+}> = ({ setProductList }) => {
+  const { productApi } = useProductApi()
+
   const [search, setSearch] = useState<string>('')
+
   const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch: string = e.target.value
     setSearch(newSearch)
+    if (newSearch.length === 0) {
+      setProductList(productApi)
+    }
     // console.log(newSearch);
   }
+
   useEffect(() => {
-    let timer = setTimeout(async () => {
-      const api = await getAll()
-      const regex = new RegExp(search, 'i')
-      setProductList(api.filter(c => regex.test(c.title)))
-    }, 1000)
-    
-    return () => {clearTimeout(timer)}
-  }, [setProductList, search])
+    if (search.length !== 0) {
+      var timer = setTimeout(async () => {
+        const regex = new RegExp(search, 'i')
+        setProductList(productApi.filter((c) => regex.test(c.title)))
+      }, 1000)
+    }
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [productApi, search, setProductList])
 
   return (
     <div className='border-2 border-gray-500 rounded-full px-2 py-2 flex items-center justify-start h-16 w-full'>
