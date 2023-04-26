@@ -40,6 +40,7 @@ const SearchCard: React.FC<{
           id='floatingInputGroup1'
           value={search}
           onChange={searchHandler}
+          autoComplete='off'
         />
         <label
           htmlFor='floatingInputGroup1'

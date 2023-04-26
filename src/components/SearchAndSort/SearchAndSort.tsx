@@ -4,12 +4,14 @@ import {
   useSetProductList,
   useProductApi,
   useAllCategoriesApi,
+  useProductList
 } from '../Pages/RootLayout'
 
 const SearchAndSort: React.FC = () => {
   const { setProductList } = useSetProductList()
   const { productApi } = useProductApi()
   const { allCategoriesApi } = useAllCategoriesApi()
+  const { productList } = useProductList()
 
   return (
     <header
@@ -22,6 +24,7 @@ const SearchAndSort: React.FC = () => {
         setProductList={setProductList}
         productApi={productApi}
         allCategoriesApi={allCategoriesApi}
+        productList={productList}
       />
 
       <span className=''></span>

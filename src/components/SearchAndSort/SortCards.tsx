@@ -5,10 +5,17 @@ const SortCards: React.FC<{
   setProductList: React.Dispatch<React.SetStateAction<Card[]>>
   productApi: Card[]
   allCategoriesApi: string[]
+  productList: Card[]
 }> = (props) => {
   const list = ['all categories', ...props.allCategoriesApi]
-
-  const categoryName = useRef<string>(list[0])
+  const uniqueCurrentCategories = new Set(
+    props.productList.map((p) => p.category)
+  )
+  const categoryName = useRef<string>(
+    uniqueCurrentCategories.size === 1
+      ? uniqueCurrentCategories.values().next().value
+      : list[0]
+  )
   const revealDropdownRef = useRef<boolean>(false)
 
   const showListHandler = () => {
@@ -46,6 +53,8 @@ const SortCards: React.FC<{
       )
       categoryName.current = category
     }
+    revealDropdownRef.current = true
+    showListHandler()
   }
 
   return (
