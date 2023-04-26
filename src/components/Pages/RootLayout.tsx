@@ -13,7 +13,8 @@ const RootLayout: React.FC = () => {
 
   const { productApi } = useLoaderData() as { productApi: Card[] }
   const { allCategoriesApi } = useLoaderData() as { allCategoriesApi: string[] }
-
+  const { userApi } = useLoaderData() as { userApi: User }
+  
   const [cart, setCart] = useState<Cart[]>([])
   const [productList, setProductList] = useState<Card[]>(productApi)
 
@@ -25,12 +26,13 @@ const RootLayout: React.FC = () => {
       cart,
       setCart,
       allCategoriesApi,
+      userApi,
     }
-  }, [allCategoriesApi, cart, productApi, productList])
+  }, [allCategoriesApi, cart, productApi, productList, userApi])
 
   return (
     <>
-      <Header cart={cart} />
+      <Header cart={cart} userApi={userApi}/>
       <Outlet context={context} />
     </>
   )

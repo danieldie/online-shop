@@ -3,7 +3,7 @@ import { useCart, useProductApi } from './RootLayout'
 
 const Products: React.FC = () => {
   const { cart } = useCart()
-  const { productApi } = useProductApi()
+  const { productApi } = useProductApi()  
 
   return (
     <>

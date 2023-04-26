@@ -1,14 +1,12 @@
 import logo from './logo.png'
 import { User, Cart } from '../../types/types'
-import { NavLink, useLoaderData } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { memo } from 'react'
 
-const Header: React.FC<{ cart: Cart[] }> = (props) => {
+const Header: React.FC<{ cart: Cart[]; userApi: User }> = (props) => {
   const cartQuantity = props.cart.reduce((total, current) => {
     return total + current.quantity
   }, 0)
-
-  const { userApi } = useLoaderData() as { userApi: User }
 
   return (
     <header id='header' className='sticky top-0 px-5 z-10'>
@@ -28,7 +26,7 @@ const Header: React.FC<{ cart: Cart[] }> = (props) => {
               <p className='mb-0 ms-2 hidden sm:block'>Hi, User</p>
             )} */}
             <p className='mb-0 ms-2 hidden sm:block'>
-              Hi, {userApi.name.firstname}
+              Hi, {props.userApi.name.firstname}
             </p>
           </div>
         </NavLink>
