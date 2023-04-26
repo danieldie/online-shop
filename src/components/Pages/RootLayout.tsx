@@ -1,4 +1,4 @@
-import { useState, useMemo, memo } from 'react'
+import { useState, useMemo } from 'react'
 import Header from '../Header/Header'
 import {
   getAll as getAllProducts,
@@ -36,7 +36,7 @@ const RootLayout: React.FC = () => {
   )
 }
 
-export default memo(RootLayout)
+export default RootLayout
 
 export function useProductList() {
   return useOutletContext<{ productList: Card[] }>()
