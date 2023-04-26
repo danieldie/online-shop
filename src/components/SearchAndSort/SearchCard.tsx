@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { Card } from '../../types/types'
 import { useAppDispatch } from '../../hooks/hooks'
-import { setAllProducts, setSerachedProducts } from '../../reducers/productsReducer'
+import {
+  setAllProducts,
+  setSerachedProducts,
+} from '../../reducers/productsReducer'
 
-const SearchCard: React.FC<{
+let SearchCard: React.FC<{
   productApi: Card[]
-}> = ({productApi}) => {
-
+}> = ({ productApi }) => {
   const dispatch = useAppDispatch()
   const [search, setSearch] = useState<string>('')
 
@@ -14,18 +16,14 @@ const SearchCard: React.FC<{
     const newSearch: string = e.target.value
     setSearch(newSearch)
     if (newSearch.length === 0) {
-      // setProductList(productApi)
-      dispatch(setAllProducts({productApi}))
+      dispatch(setAllProducts({ productApi }))
     }
-    // console.log(newSearch);
   }
 
   useEffect(() => {
     if (search.length !== 0) {
       var timer = setTimeout(async () => {
-        // const regex = new RegExp(search, 'i')
-        // setProductList(productApi.filter((c) => regex.test(c.title)))
-        dispatch(setSerachedProducts({productApi, search}))
+        dispatch(setSerachedProducts({ productApi, search }))
       }, 1000)
     }
     return () => {
@@ -63,4 +61,5 @@ const SearchCard: React.FC<{
   )
 }
 
+SearchCard = memo(SearchCard)
 export default SearchCard

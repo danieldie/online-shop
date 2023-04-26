@@ -1,9 +1,12 @@
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 import { Card } from '../../types/types'
 import { useAppDispatch } from '../../hooks/hooks'
-import { setAllProducts, setSortedProducts } from '../../reducers/productsReducer'
+import {
+  setAllProducts,
+  setSortedProducts,
+} from '../../reducers/productsReducer'
 
-const SortCards: React.FC<{
+let SortCards: React.FC<{
   productApi: Card[]
   allCategoriesApi: string[]
   productList: Card[]
@@ -47,14 +50,10 @@ const SortCards: React.FC<{
       category === 'all categories' ||
       !list.includes(category.toLowerCase())
     ) {
-      // props.setProductList(props.productApi)
-      dispatch(setAllProducts({productApi:props.productApi}))
+      dispatch(setAllProducts({ productApi: props.productApi }))
       categoryName.current = list[0]
     } else {
-      // props.setProductList(
-      //   props.productApi.filter((p) => p.category === category)
-      // )
-      dispatch(setSortedProducts({productApi:props.productApi, category}))
+      dispatch(setSortedProducts({ productApi: props.productApi, category }))
       categoryName.current = category
     }
     revealDropdownRef.current = true
@@ -93,4 +92,5 @@ const SortCards: React.FC<{
   )
 }
 
+SortCards = memo(SortCards)
 export default SortCards

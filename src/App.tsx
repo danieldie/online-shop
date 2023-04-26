@@ -6,14 +6,14 @@ import Products from './components/Pages/Products'
 import Cart from './components/Pages/Cart'
 import Error from './components/Pages/Error'
 import { Provider } from 'react-redux'
-import store from './store'
+import store, { dispatch } from './store'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <Error />,
-    loader: rootHandler,
+    loader: () => rootHandler(dispatch),
     children: [
       {
         index: true,

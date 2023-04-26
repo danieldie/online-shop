@@ -1,22 +1,12 @@
 import SearchCard from './SearchCard'
 import SortCards from './SortCards'
-// import {
-//   useSetProductList,
-//   useProductApi,
-//   useAllCategoriesApi,
-//   useProductList,
-// } from '../Pages/RootLayout'
-import { useLoaderData } from 'react-router-dom'
-import { Card } from '../../types/types'
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
+import { useAppSelector } from '../../hooks/hooks'
 
 const SearchAndSort: React.FC = () => {
-  // const { setProductList } = useSetProductList()
-  // const { productApi } = useProductApi()
-  // const { allCategoriesApi } = useAllCategoriesApi()
-  const {api:{productApi, allCategoriesApi}, products:productList} = useAppSelector(state => state)
-  // const { productList } = useProductList()
-  // const {} = useAppSelector(state => state)
+  const {
+    api: { productApi, allCategoriesApi },
+    products: productList,
+  } = useAppSelector((state) => state)
 
   return (
     <header

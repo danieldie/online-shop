@@ -1,25 +1,11 @@
 import { Card } from '../../types/types'
-// import { useSetCart } from '../Pages/RootLayout'
 import { addToCart } from '../../reducers/cartReducer'
 import { useAppDispatch } from '../../hooks/hooks'
+import {memo} from 'react'
 
-const ProductCard: React.FC<Card> = (props) => {
-  // const { setCart } = useSetCart()
+let ProductCard: React.FC<Card> = (props) => {
   const dispatch = useAppDispatch()
   const addCardHandler = (id: number) => {
-    // setCart((prevState) => {
-    //   const prodIndex = prevState.findIndex((c) => c.id === id)
-    //   if (prodIndex !== -1) {
-    //     return prevState.map((c, i) => {
-    //       if (i === prodIndex) {
-    //         return { ...c, quantity: c.quantity + 1 }
-    //       } else {
-    //         return c
-    //       }
-    //     })
-    //   }
-    //   return [...prevState, { id, quantity: 1 }]
-    // })
     dispatch(addToCart({id}))
   }
 
@@ -52,5 +38,7 @@ const ProductCard: React.FC<Card> = (props) => {
     </article>
   )
 }
+
+ProductCard = memo(ProductCard)
 
 export default ProductCard

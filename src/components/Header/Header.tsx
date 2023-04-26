@@ -3,7 +3,7 @@ import { User, Cart } from '../../types/types'
 import { NavLink } from 'react-router-dom'
 import { memo } from 'react'
 
-const Header: React.FC<{ cart: Cart[]; userApi: User }> = (props) => {
+let Header: React.FC<{ cart: Cart[]; userApi: User }> = (props) => {
   const cartQuantity = props.cart.reduce((total, current) => {
     return total + current.quantity
   }, 0)
@@ -18,13 +18,6 @@ const Header: React.FC<{ cart: Cart[]; userApi: User }> = (props) => {
         >
           <div className='flex items-center justify-start'>
             <i className='fa-regular fa-circle-user fs-2 fa-2xl'></i>
-            {/* {user ? (
-              <p className='mb-0 ms-2 hidden sm:block'>
-                Hi, {user?.name.firstname}
-              </p>
-            ) : (
-              <p className='mb-0 ms-2 hidden sm:block'>Hi, User</p>
-            )} */}
             <p className='mb-0 ms-2 hidden sm:block'>
               Hi, {props.userApi.name.firstname}
             </p>
@@ -55,4 +48,6 @@ const Header: React.FC<{ cart: Cart[]; userApi: User }> = (props) => {
   )
 }
 
-export default memo(Header)
+Header = memo(Header)
+
+export default Header
