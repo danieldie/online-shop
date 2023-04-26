@@ -38,3 +38,9 @@ export interface User {
   phone: string
   __v: number
 }
+
+export interface ApiType {
+  productApi: Card[]
+  allCategoriesApi: string[]
+  userApi: User | null
+}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+// import { useState, useMemo } from 'react'
 import Header from '../Header/Header'
 import {
   getAll as getAllProducts,
@@ -7,70 +7,96 @@ import {
 import { getOne as getOneUser } from '../../services/users'
 import { Card, Cart, User } from '../../types/types'
 import { Outlet, useOutletContext, useLoaderData } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import { setAllProducts } from '../../reducers/productsReducer'
+import {
+  setAllCategoriesApi,
+  setProductApi,
+  setUserApi,
+} from '../../reducers/apiReducer'
+import { useEffect } from 'react'
 
 const RootLayout: React.FC = () => {
-  console.log('redering')
+  const dispatch = useAppDispatch()
 
   const { productApi } = useLoaderData() as { productApi: Card[] }
   const { allCategoriesApi } = useLoaderData() as { allCategoriesApi: string[] }
   const { userApi } = useLoaderData() as { userApi: User }
   
-  const [cart, setCart] = useState<Cart[]>([])
-  const [productList, setProductList] = useState<Card[]>(productApi)
+  useEffect(() => {
+    dispatch(setAllProducts({ productApi }))
 
-  const context = useMemo(() => {
-    return {
-      productApi,
-      productList,
-      setProductList,
-      cart,
-      setCart,
-      allCategoriesApi,
-      userApi,
-    }
-  }, [allCategoriesApi, cart, productApi, productList, userApi])
+    dispatch(setAllCategoriesApi({ allCategoriesApi }))
+    dispatch(setProductApi({ productApi }))
+    dispatch(setUserApi({ userApi }))
+  }, [allCategoriesApi, dispatch, productApi, userApi])
+
+  // dispatch(setAllProducts({ productApi }))
+  // dispatch(setAllCategoriesApi({ allCategoriesApi }))
+  // dispatch(setProductApi({ productApi }))
+  // dispatch(setUserApi({ userApi }))
+
+  console.log('RootLayout')
+
+  const { cart } = useAppSelector((state) => state)
+
+  // const [cart, setCart] = useState<Cart[]>([])
+  // const [productList, setProductList] = useState<Card[]>(productApi)
+
+  // const context = useMemo(() => {
+  //   return {
+  //     productApi,
+  //     productList,
+  //     setProductList,
+  //     cart,
+  //     setCart,
+  //     allCategoriesApi,
+  //     userApi,
+  //   }
+  // }, [allCategoriesApi, cart, productApi, productList, userApi])
 
   return (
     <>
-      <Header cart={cart} userApi={userApi}/>
-      <Outlet context={context} />
+      <Header cart={cart} userApi={userApi} />
+
+      <Outlet />
     </>
   )
 }
 
 export default RootLayout
 
-export function useProductList() {
-  return useOutletContext<{ productList: Card[] }>()
-}
-export function useSetProductList() {
-  return useOutletContext<{
-    setProductList: React.Dispatch<React.SetStateAction<Card[]>>
-  }>()
-}
-export function useCart() {
-  return useOutletContext<{ cart: Cart[] }>()
-}
-export function useSetCart() {
-  return useOutletContext<{
-    setCart: React.Dispatch<React.SetStateAction<Cart[]>>
-  }>()
-}
-export function useProductApi() {
-  return useOutletContext<{
-    productApi: Card[]
-  }>()
-}
-export function useAllCategoriesApi() {
-  return useOutletContext<{
-    allCategoriesApi: string[]
-  }>()
-}
-export function useUserApi() {
-  return useOutletContext<{
-    userApi: User
-  }>()
-}
+// export function useProductList() {
+//   return useOutletContext<{ productList: Card[] }>()
+// }
+// export function useSetProductList() {
+//   return useOutletContext<{
+//     setProductList: React.Dispatch<React.SetStateAction<Card[]>>
+//   }>()
+// }
+// export function useCart() {
+//   return useOutletContext<{ cart: Cart[] }>()
+// }
+// export function useSetCart() {
+//   return useOutletContext<{
+//     setCart: React.Dispatch<React.SetStateAction<Cart[]>>
+//   }>()
+// }
+// export function useProductApi() {
+//   return useOutletContext<{
+//     productApi: Card[]
+//   }>()
+// }
+// export function useAllCategoriesApi() {
+//   return useOutletContext<{
+//     allCategoriesApi: string[]
+//   }>()
+// }
+// export function useUserApi() {
+//   return useOutletContext<{
+//     userApi: User
+//   }>()
+// }
 
 export async function handler() {
   const promiseArr = await Promise.all([

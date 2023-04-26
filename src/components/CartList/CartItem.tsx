@@ -1,57 +1,63 @@
 import { Card } from '../../types/types'
-import { useSetCart } from '../Pages/RootLayout'
+// import { useSetCart } from '../Pages/RootLayout'
+import { addToCart, decreaseFromCart, deleteFromCart } from '../../reducers/cartReducer'
+import { useAppDispatch } from '../../hooks/hooks'
 
 const CartItem: React.FC<{
   product: Card | undefined
   quantity: number
   number: number
 }> = (props) => {
-  const { setCart } = useSetCart()
+  // const { setCart } = useSetCart()
+  const dispatch = useAppDispatch()
   const totalPrice = props.product!.price * props.quantity
 
   const deleteCartHandler = (id: number) => {
     // console.log(`id ${id} deleted from cart`)
-    setCart((prevState) => {
-      // console.log(prevState.filter((c) => c.id === id))
-      return prevState.filter((c) => c.id !== id)
-    })
+    // setCart((prevState) => {
+    //   // console.log(prevState.filter((c) => c.id === id))
+    //   return prevState.filter((c) => c.id !== id)
+    // })
+    dispatch(deleteFromCart({id}))
   }
 
   const increaseCartHandler = (id: number) => {
     // console.log(`id ${id} increased in cart`)
-    setCart((prevState) => {
-      const prodIndex = prevState.findIndex((c) => c.id === id)
-      // console.log(prodIndex);
-      if (prodIndex !== -1) {
-        return prevState.map((c, i) => {
-          if (i === prodIndex) {
-            return { ...c, quantity: c.quantity + 1 }
-          } else {
-            return c
-          }
-        })
-      }
-      return [...prevState, { id, quantity: 1 }]
-    })
+    // setCart((prevState) => {
+    //   const prodIndex = prevState.findIndex((c) => c.id === id)
+    //   // console.log(prodIndex);
+    //   if (prodIndex !== -1) {
+    //     return prevState.map((c, i) => {
+    //       if (i === prodIndex) {
+    //         return { ...c, quantity: c.quantity + 1 }
+    //       } else {
+    //         return c
+    //       }
+    //     })
+    //   }
+    //   return [...prevState, { id, quantity: 1 }]
+    // })
+    dispatch(addToCart({id}))
   }
 
   const decreaseCartHandler = (id: number) => {
     // console.log(`id ${id} defcreased in cart`)
-    setCart((prevState) => {
-      const prodIndex = prevState.findIndex((c) => c.id === id)
-      if (prodIndex !== -1) {
-        return prevState
-          .map((c, i) => {
-            if (i === prodIndex) {
-              return { ...c, quantity: c.quantity - 1 }
-            } else {
-              return c
-            }
-          })
-          .filter((c) => c.quantity > 0)
-      }
-      return prevState
-    })
+    // setCart((prevState) => {
+    //   const prodIndex = prevState.findIndex((c) => c.id === id)
+    //   if (prodIndex !== -1) {
+    //     return prevState
+    //       .map((c, i) => {
+    //         if (i === prodIndex) {
+    //           return { ...c, quantity: c.quantity - 1 }
+    //         } else {
+    //           return c
+    //         }
+    //       })
+    //       .filter((c) => c.quantity > 0)
+    //   }
+    //   return prevState
+    // })
+    dispatch(decreaseFromCart({id}))
   }
 
   return (

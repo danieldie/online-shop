@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react'
 import { Card } from '../../types/types'
+import { useAppDispatch } from '../../hooks/hooks'
+import { setAllProducts, setSerachedProducts } from '../../reducers/productsReducer'
 
 const SearchCard: React.FC<{
-  setProductList: React.Dispatch<React.SetStateAction<Card[]>>
   productApi: Card[]
-}> = (props) => {
-  const { setProductList, productApi } = props
+}> = ({productApi}) => {
+
+  const dispatch = useAppDispatch()
   const [search, setSearch] = useState<string>('')
 
   const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch: string = e.target.value
     setSearch(newSearch)
     if (newSearch.length === 0) {
-      setProductList(productApi)
+      // setProductList(productApi)
+      dispatch(setAllProducts({productApi}))
     }
     // console.log(newSearch);
   }
@@ -20,14 +23,15 @@ const SearchCard: React.FC<{
   useEffect(() => {
     if (search.length !== 0) {
       var timer = setTimeout(async () => {
-        const regex = new RegExp(search, 'i')
-        setProductList(productApi.filter((c) => regex.test(c.title)))
+        // const regex = new RegExp(search, 'i')
+        // setProductList(productApi.filter((c) => regex.test(c.title)))
+        dispatch(setSerachedProducts({productApi, search}))
       }, 1000)
     }
     return () => {
       clearTimeout(timer)
     }
-  }, [productApi, search, setProductList])
+  }, [productApi, search, dispatch])
 
   return (
     <div className='border-2 border-gray-500 rounded-full px-2 py-2 flex items-center justify-start h-16 w-full'>

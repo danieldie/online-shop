@@ -5,6 +5,8 @@ import RootLayout, {
 import Products from './components/Pages/Products'
 import Cart from './components/Pages/Cart'
 import Error from './components/Pages/Error'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </>
   )
 }

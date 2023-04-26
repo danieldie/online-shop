@@ -1,23 +1,26 @@
 import { Card } from '../../types/types'
-import { useSetCart } from '../Pages/RootLayout'
+// import { useSetCart } from '../Pages/RootLayout'
+import { addToCart } from '../../reducers/cartReducer'
+import { useAppDispatch } from '../../hooks/hooks'
 
 const ProductCard: React.FC<Card> = (props) => {
-  const { setCart } = useSetCart()
-
+  // const { setCart } = useSetCart()
+  const dispatch = useAppDispatch()
   const addCardHandler = (id: number) => {
-    setCart((prevState) => {
-      const prodIndex = prevState.findIndex((c) => c.id === id)
-      if (prodIndex !== -1) {
-        return prevState.map((c, i) => {
-          if (i === prodIndex) {
-            return { ...c, quantity: c.quantity + 1 }
-          } else {
-            return c
-          }
-        })
-      }
-      return [...prevState, { id, quantity: 1 }]
-    })
+    // setCart((prevState) => {
+    //   const prodIndex = prevState.findIndex((c) => c.id === id)
+    //   if (prodIndex !== -1) {
+    //     return prevState.map((c, i) => {
+    //       if (i === prodIndex) {
+    //         return { ...c, quantity: c.quantity + 1 }
+    //       } else {
+    //         return c
+    //       }
+    //     })
+    //   }
+    //   return [...prevState, { id, quantity: 1 }]
+    // })
+    dispatch(addToCart({id}))
   }
 
   return (

@@ -3,24 +3,27 @@ import { Card } from '../types/types'
 
 const initialState: Card[] = []
 
-const productSlice = createSlice({
+const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    allProducts(state: Card[], action: { payload: { productApi: Card[] } }) {
+    setAllProducts(state, action: { payload: { productApi: Card[] } }) {
+      // console.log('products')
       return action.payload.productApi
     },
-    serachProducts(
-      state: Card[],
+    setSerachedProducts(
+      state,
       action: { payload: { productApi: Card[]; search: string } }
     ) {
+      // console.log('products')
       const regex = new RegExp(action.payload.search, 'i')
       return action.payload.productApi.filter((c) => regex.test(c.title))
     },
-    sortProducts(
-      state: Card[],
+    setSortedProducts(
+      state,
       action: { payload: { productApi: Card[]; category: string } }
     ) {
+      // console.log('products')
       return action.payload.productApi.filter(
         (p) => p.category === action.payload.category
       )
@@ -28,6 +31,7 @@ const productSlice = createSlice({
   },
 })
 
-export const { allProducts, serachProducts, sortProducts } = productSlice.actions
+export const { setAllProducts, setSerachedProducts, setSortedProducts } =
+  productsSlice.actions
 
-export default productSlice.reducer
+export default productsSlice.reducer
