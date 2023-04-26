@@ -1,6 +1,7 @@
 import logo from './logo.png'
 import { User, Cart } from '../../types/types'
 import { NavLink, useLoaderData } from 'react-router-dom'
+import { memo } from 'react'
 
 const Header: React.FC<{ cart: Cart[] }> = (props) => {
   const cartQuantity = props.cart.reduce((total, current) => {
@@ -56,4 +57,4 @@ const Header: React.FC<{ cart: Cart[] }> = (props) => {
   )
 }
 
-export default Header
+export default memo(Header)

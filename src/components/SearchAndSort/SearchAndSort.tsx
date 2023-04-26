@@ -4,7 +4,7 @@ import {
   useSetProductList,
   useProductApi,
   useAllCategoriesApi,
-  useProductList
+  useProductList,
 } from '../Pages/RootLayout'
 
 const SearchAndSort: React.FC = () => {

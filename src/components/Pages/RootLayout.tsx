@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo, memo } from 'react'
 import Header from '../Header/Header'
 import {
   getAll as getAllProducts,
@@ -17,24 +17,26 @@ const RootLayout: React.FC = () => {
   const [cart, setCart] = useState<Cart[]>([])
   const [productList, setProductList] = useState<Card[]>(productApi)
 
+  const context = useMemo(() => {
+    return {
+      productApi,
+      productList,
+      setProductList,
+      cart,
+      setCart,
+      allCategoriesApi,
+    }
+  }, [allCategoriesApi, cart, productApi, productList])
+
   return (
     <>
       <Header cart={cart} />
-      <Outlet
-        context={{
-          productApi,
-          productList,
-          setProductList,
-          cart,
-          setCart,
-          allCategoriesApi,
-        }}
-      />
+      <Outlet context={context} />
     </>
   )
 }
 
-export default RootLayout
+export default memo(RootLayout)
 
 export function useProductList() {
   return useOutletContext<{ productList: Card[] }>()

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { Card } from '../../types/types'
 
 const SearchCard: React.FC<{
@@ -59,4 +59,4 @@ const SearchCard: React.FC<{
   )
 }
 
-export default SearchCard
+export default memo(SearchCard)

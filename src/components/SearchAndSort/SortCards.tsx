@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 import { Card } from '../../types/types'
 
 const SortCards: React.FC<{
@@ -89,4 +89,4 @@ const SortCards: React.FC<{
   )
 }
 
-export default SortCards
+export default memo(SortCards)
