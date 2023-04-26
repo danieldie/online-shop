@@ -6,11 +6,7 @@ import {
 } from '../../services/products'
 import { getOne as getOneUser } from '../../services/users'
 import { Card, Cart, User } from '../../types/types'
-import {
-  Outlet,
-  useOutletContext,
-  useLoaderData,
-} from 'react-router-dom'
+import { Outlet, useOutletContext, useLoaderData } from 'react-router-dom'
 
 const RootLayout: React.FC = () => {
   console.log('redering')
@@ -83,9 +79,4 @@ export async function handler() {
     productApi: promiseArr[1],
     allCategoriesApi: promiseArr[2],
   }
-  // return defer({
-  //   userApi:  getOneUser(1),
-  //   productApi:  getAllProducts(),
-  //   allCategoriesApi:  getAllCategories(),
-  // })
 }

@@ -1,16 +1,17 @@
-import { Card, Cart } from '../../types/types'
+import { Card } from '../../types/types'
+import { useSetCart } from '../Pages/RootLayout'
 
 const CartItem: React.FC<{
-  cart: Card | undefined
+  product: Card | undefined
   quantity: number
   number: number
-  setCart: React.Dispatch<React.SetStateAction<Cart[]>>
 }> = (props) => {
-  const totalPrice = props.cart!.price * props.quantity
+  const { setCart } = useSetCart()
+  const totalPrice = props.product!.price * props.quantity
 
   const deleteCartHandler = (id: number) => {
     // console.log(`id ${id} deleted from cart`)
-    props.setCart((prevState) => {
+    setCart((prevState) => {
       // console.log(prevState.filter((c) => c.id === id))
       return prevState.filter((c) => c.id !== id)
     })
@@ -18,7 +19,7 @@ const CartItem: React.FC<{
 
   const increaseCartHandler = (id: number) => {
     // console.log(`id ${id} increased in cart`)
-    props.setCart((prevState) => {
+    setCart((prevState) => {
       const prodIndex = prevState.findIndex((c) => c.id === id)
       // console.log(prodIndex);
       if (prodIndex !== -1) {
@@ -36,7 +37,7 @@ const CartItem: React.FC<{
 
   const decreaseCartHandler = (id: number) => {
     // console.log(`id ${id} defcreased in cart`)
-    props.setCart((prevState) => {
+    setCart((prevState) => {
       const prodIndex = prevState.findIndex((c) => c.id === id)
       if (prodIndex !== -1) {
         return prevState
@@ -60,37 +61,37 @@ const CartItem: React.FC<{
           <p>{props.number}</p>
         </td>
         <td className=''>
-          <p className='line-clamp-2'>{props.cart?.title}</p>
+          <p className='line-clamp-2'>{props.product?.title}</p>
         </td>
         <td className=''>
-          <p className='line-clamp-2'>{props.cart?.description}</p>
+          <p className='line-clamp-2'>{props.product?.description}</p>
         </td>
         <td className=''>
           <div className='flex justify-center items-center'>
             <button
               className='mx-2 w-7 h-7 rounded-full text-red-400 bg-red-600'
-              onClick={() => decreaseCartHandler(props.cart!.id)}
+              onClick={() => decreaseCartHandler(props.product!.id)}
             >
               <i className='fa-solid fa-circle-minus'></i>
             </button>
             <p>{props.quantity}</p>
             <button
               className='mx-2 w-7 h-7 rounded-full text-blue-400 bg-blue-600'
-              onClick={() => increaseCartHandler(props.cart!.id)}
+              onClick={() => increaseCartHandler(props.product!.id)}
             >
               <i className='fa-solid fa-circle-plus'></i>
             </button>
           </div>
         </td>
         <td className='flex-nowrap '>
-          <p>{props.cart?.price.toFixed(2)}$</p>
+          <p>{props.product?.price.toFixed(2)}$</p>
         </td>
         <td>
           <p>{totalPrice.toFixed(2)}$</p>
         </td>
         <td className=''>
           <button
-            onClick={() => deleteCartHandler(props.cart!.id)}
+            onClick={() => deleteCartHandler(props.product!.id)}
             className='text-white bg-red-600 rounded-full w-7 h-7'
           >
             <i className='fa-regular fa-trash-can'></i>
@@ -103,36 +104,36 @@ const CartItem: React.FC<{
           <article className='grid grid-cols-7 w-full h-full'>
             <figure className='relative col-span-2 '>
               <img
-                src={props.cart!.image}
-                alt={props.cart?.description}
+                src={props.product!.image}
+                alt={props.product?.description}
                 className='object-contain absolute inset-0 w-full h-full'
               />
             </figure>
 
             <div className='flex flex-col justify-between items-start h-full col-span-4 pl-2'>
               <h2 className='text-start line-clamp-2 sm:line-clamp-3 font-bold'>
-                {props.cart!.title}
+                {props.product!.title}
               </h2>
 
               <div className='flex justify-center items-center'>
                 <p>Quantity:</p>
                 <button
                   className='mx-2 w-7 h-7 rounded-full text-red-400 bg-red-600'
-                  onClick={() => decreaseCartHandler(props.cart!.id)}
+                  onClick={() => decreaseCartHandler(props.product!.id)}
                 >
                   <i className='fa-solid fa-circle-minus'></i>
                 </button>
                 <p>{props.quantity}</p>
                 <button
                   className='mx-2 w-7 h-7 rounded-full text-blue-400 bg-blue-600'
-                  onClick={() => increaseCartHandler(props.cart!.id)}
+                  onClick={() => increaseCartHandler(props.product!.id)}
                 >
                   <i className='fa-solid fa-circle-plus'></i>
                 </button>
               </div>
 
               <button
-                onClick={() => deleteCartHandler(props.cart!.id)}
+                onClick={() => deleteCartHandler(props.product!.id)}
                 className='text-white bg-red-600 rounded-full w-7 h-7'
               >
                 <i className='fa-regular fa-trash-can'></i>
@@ -140,7 +141,7 @@ const CartItem: React.FC<{
             </div>
 
             <p className='font-medium col-span-1 text-end'>
-              {props.cart?.price}$
+              {props.product?.price}$
             </p>
           </article>
         </td>

@@ -1,15 +1,12 @@
 import { Card, Cart } from '../../types/types'
 import CartItem from './CartItem'
-import { useProductApi } from '../Pages/RootLayout'
 
 const CartList: React.FC<{
   cart: Cart[]
-  setCart: React.Dispatch<React.SetStateAction<Cart[]>>
+  productApi: Card[]
 }> = (props) => {
-  const { productApi:api } = useProductApi()
-
   const productFinderHandler = (id: number): Card | undefined => {
-    const card = api.find((c) => c.id === id)
+    const card = props.productApi.find((c) => c.id === id)
     return card
   }
 
@@ -36,11 +33,10 @@ const CartList: React.FC<{
         <tbody>
           {props.cart.map((c, i) => (
             <CartItem
-              cart={productFinderHandler(c.id)}
+              product={productFinderHandler(c.id)}
               quantity={c.quantity}
               key={c.id}
               number={i + 1}
-              setCart={props.setCart}
             />
           ))}
 

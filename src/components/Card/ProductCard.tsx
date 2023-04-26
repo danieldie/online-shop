@@ -1,15 +1,12 @@
-import { Card, Cart } from '../../types/types'
+import { Card } from '../../types/types'
+import { useSetCart } from '../Pages/RootLayout'
 
-interface Pcard extends Card {
-  setCart: React.Dispatch<React.SetStateAction<Cart[]>>
-}
+const ProductCard: React.FC<Card> = (props) => {
+  const { setCart } = useSetCart()
 
-const ProductCard: React.FC<Pcard> = (props) => {
   const addCardHandler = (id: number) => {
-    // console.log(`id ${id} increased/added in cart`)
-    props.setCart((prevState) => {
+    setCart((prevState) => {
       const prodIndex = prevState.findIndex((c) => c.id === id)
-      // console.log(prodIndex);
       if (prodIndex !== -1) {
         return prevState.map((c, i) => {
           if (i === prodIndex) {

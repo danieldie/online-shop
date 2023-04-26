@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Card } from '../../types/types'
-import { useProductApi } from '../Pages/RootLayout'
 
 const SearchCard: React.FC<{
   setProductList: React.Dispatch<React.SetStateAction<Card[]>>
-}> = ({ setProductList }) => {
-  const { productApi } = useProductApi()
-
+  productApi: Card[]
+}> = (props) => {
+  const { setProductList, productApi } = props
   const [search, setSearch] = useState<string>('')
 
   const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

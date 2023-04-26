@@ -1,14 +1,12 @@
 import { useRef } from 'react'
 import { Card } from '../../types/types'
-import { useAllCategoriesApi, useProductApi } from '../Pages/RootLayout'
 
 const SortCards: React.FC<{
   setProductList: React.Dispatch<React.SetStateAction<Card[]>>
+  productApi: Card[]
+  allCategoriesApi: string[]
 }> = (props) => {
-  const { allCategoriesApi } = useAllCategoriesApi()
-  const { productApi } = useProductApi()
-
-  const list = ['all categories', ...allCategoriesApi]
+  const list = ['all categories', ...props.allCategoriesApi]
 
   const categoryName = useRef<string>(list[0])
   const revealDropdownRef = useRef<boolean>(false)
@@ -36,11 +34,16 @@ const SortCards: React.FC<{
   }
 
   const sortCardsHandler = async (category: string) => {
-    if (category === 'all categories' || !list.includes(category.toLowerCase())){
-      props.setProductList(productApi)
+    if (
+      category === 'all categories' ||
+      !list.includes(category.toLowerCase())
+    ) {
+      props.setProductList(props.productApi)
       categoryName.current = list[0]
     } else {
-      props.setProductList(productApi.filter(p => p.category === category))
+      props.setProductList(
+        props.productApi.filter((p) => p.category === category)
+      )
       categoryName.current = category
     }
   }

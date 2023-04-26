@@ -1,12 +1,13 @@
 import CartList from '../CartList/CartList'
-import { useSetCart, useCart } from './RootLayout'
+import { useCart, useProductApi } from './RootLayout'
 
 const Products: React.FC = () => {
   const { cart } = useCart()
-  const { setCart } = useSetCart()
+  const { productApi } = useProductApi()
+
   return (
     <>
-      <CartList cart={cart} setCart={setCart} />
+      <CartList cart={cart} productApi={productApi} />
     </>
   )
 }
