@@ -1,12 +1,26 @@
 import { Card } from '../../types/types'
 import { addToCart } from '../../reducers/cartReducer'
 import { useAppDispatch } from '../../hooks/hooks'
-import {memo} from 'react'
+import { useState, memo } from 'react'
 
 let ProductCard: React.FC<Card> = (props) => {
+  const [disabled, setDisabled] = useState<boolean>(false)
+  const [text, setText] = useState<string>('text-center')
+  const [dot, setDot] = useState<string>('hidden')
+
   const dispatch = useAppDispatch()
+
   const addCardHandler = (id: number) => {
-    dispatch(addToCart({id}))
+    setDisabled(true)
+    setText('hidden')
+    setDot('flex, justify-center, items-center')
+
+    setTimeout(() => {
+      dispatch(addToCart({ id }))
+      setText('text-center')
+      setDot('hidden')
+      setDisabled(false)
+    }, 1000)
   }
 
   return (
@@ -28,10 +42,17 @@ let ProductCard: React.FC<Card> = (props) => {
         <div className='flex justify-between items-center'>
           <p className='text-gray-500'>price: {props.price} $</p>
           <button
+            disabled={disabled}
+            id='add-to-cart'
             onClick={() => addCardHandler(props.id)}
-            className='bg-blue-600 text-white px-5 py-1 rounded-sm'
+            className='bg-blue-600 text-white px-5 py-1 rounded-sm w-32 h-9 disabled:opacity-50 transition-all disabled:cursor-wait'
           >
-            Add to cart
+            <div className={dot}>
+              <i className='fa-solid fa-circle fa-beat-fade '></i>
+              <i className='fa-solid fa-circle fa-beat-fade mx-2'></i>
+              <i className='fa-solid fa-circle fa-beat-fade '></i>
+            </div>
+            <p className={text}>Add to cart</p>
           </button>
         </div>
       </div>

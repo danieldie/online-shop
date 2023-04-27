@@ -1,25 +1,46 @@
 import { Card } from '../../types/types'
-import { addToCart, decreaseFromCart, deleteFromCart } from '../../reducers/cartReducer'
+import {
+  addToCart,
+  decreaseFromCart,
+  deleteFromCart,
+} from '../../reducers/cartReducer'
 import { useAppDispatch } from '../../hooks/hooks'
+import { useState } from 'react'
 
 const CartItem: React.FC<{
   product: Card | undefined
   quantity: number
   number: number
 }> = (props) => {
+  const [disabled, setDisabled] = useState<boolean>(false)
+  const [text, setText] = useState<string>('text-center')
+  const [dot, setDot] = useState<string>('hidden')
+
   const dispatch = useAppDispatch()
   const totalPrice = props.product!.price * props.quantity
 
+  const cartHandler = (f: () => void) => {
+    setDisabled(true)
+    setText('hidden')
+    setDot('flex, justify-center, items-center')
+    setTimeout(() => {
+      f()
+      setText('text-center')
+      setDot('hidden')
+      setDisabled(false)
+    }, 1000)
+  }
+
   const deleteCartHandler = (id: number) => {
-    dispatch(deleteFromCart({id}))
+    dispatch(deleteFromCart({ id }))
   }
 
   const increaseCartHandler = (id: number) => {
-    dispatch(addToCart({id}))
+    dispatch(addToCart({ id }))
   }
 
   const decreaseCartHandler = (id: number) => {
-    dispatch(decreaseFromCart({id}))
+    dispatch(decreaseFromCart({ id }))
   }
 
   return (
@@ -35,17 +56,26 @@ const CartItem: React.FC<{
           <p className='line-clamp-2'>{props.product?.description}</p>
         </td>
         <td className=''>
-          <div className='flex justify-center items-center'>
+          <div className='flex justify-center items-center w-36'>
             <button
-              className='mx-2 w-7 h-7 rounded-full text-red-400 bg-red-600'
-              onClick={() => decreaseCartHandler(props.product!.id)}
+              className='mx-2 w-7 h-7 rounded-full text-red-400 disabled:cursor-wait bg-red-600 disabled:opacity-50 transition-all'
+              onClick={() =>
+                cartHandler(() => decreaseCartHandler(props.product!.id))
+              }
+              disabled={disabled}
             >
               <i className='fa-solid fa-circle-minus'></i>
             </button>
-            <p>{props.quantity}</p>
+            <div className={dot}>
+              <i className='fa-solid fa-circle-notch fa-spin fa-2xs'></i>
+            </div>
+            <p className={text}>{props.quantity}</p>
             <button
-              className='mx-2 w-7 h-7 rounded-full text-blue-400 bg-blue-600'
-              onClick={() => increaseCartHandler(props.product!.id)}
+              className='mx-2 w-7 h-7 rounded-full text-blue-400 disabled:cursor-wait bg-blue-600 disabled:opacity-50 transition-all'
+              onClick={() =>
+                cartHandler(() => increaseCartHandler(props.product!.id))
+              }
+              disabled={disabled}
             >
               <i className='fa-solid fa-circle-plus'></i>
             </button>
@@ -59,8 +89,11 @@ const CartItem: React.FC<{
         </td>
         <td className=''>
           <button
-            onClick={() => deleteCartHandler(props.product!.id)}
-            className='text-white bg-red-600 rounded-full w-7 h-7'
+            onClick={() =>
+              cartHandler(() => deleteCartHandler(props.product!.id))
+            }
+            className='text-white bg-red-600 rounded-full w-7 h-7 disabled:opacity-50 disabled:cursor-wait transition-all'
+            disabled={disabled}
           >
             <i className='fa-regular fa-trash-can'></i>
           </button>
@@ -86,23 +119,35 @@ const CartItem: React.FC<{
               <div className='flex justify-center items-center'>
                 <p>Quantity:</p>
                 <button
-                  className='mx-2 w-7 h-7 rounded-full text-red-400 bg-red-600'
-                  onClick={() => decreaseCartHandler(props.product!.id)}
+                  className='mx-2 w-7 h-7 rounded-full text-red-400 bg-red-600 disabled:opacity-50 disabled:cursor-wait transition-all'
+                  onClick={() =>
+                    cartHandler(() => decreaseCartHandler(props.product!.id))
+                  }
+                  disabled={disabled}
                 >
                   <i className='fa-solid fa-circle-minus'></i>
                 </button>
-                <p>{props.quantity}</p>
+                <div className={dot}>
+                  <i className='fa-solid fa-circle-notch fa-spin fa-2xs'></i>
+                </div>
+                <p className={text}>{props.quantity}</p>
                 <button
-                  className='mx-2 w-7 h-7 rounded-full text-blue-400 bg-blue-600'
-                  onClick={() => increaseCartHandler(props.product!.id)}
+                  className='mx-2 w-7 h-7 rounded-full text-blue-400 bg-blue-600 disabled:opacity-50 disabled:cursor-wait transition-all'
+                  onClick={() =>
+                    cartHandler(() => increaseCartHandler(props.product!.id))
+                  }
+                  disabled={disabled}
                 >
                   <i className='fa-solid fa-circle-plus'></i>
                 </button>
               </div>
 
               <button
-                onClick={() => deleteCartHandler(props.product!.id)}
-                className='text-white bg-red-600 rounded-full w-7 h-7'
+                onClick={() =>
+                  cartHandler(() => deleteCartHandler(props.product!.id))
+                }
+                className='text-white bg-red-600 rounded-full w-7 h-7 disabled:opacity-50 disabled:cursor-wait transition-all'
+                disabled={disabled}
               >
                 <i className='fa-regular fa-trash-can'></i>
               </button>
