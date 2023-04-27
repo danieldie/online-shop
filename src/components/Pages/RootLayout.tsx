@@ -13,6 +13,7 @@ import {
   setProductApi,
   setUserApi,
 } from '../../reducers/apiReducer'
+import { AppDispatch } from '../../store'
 
 const RootLayout: React.FC = () => {
   const { userApi } = useLoaderData() as { userApi: User }
@@ -32,7 +33,7 @@ const RootLayout: React.FC = () => {
 
 export default RootLayout
 
-export async function handler(dispatch: any) {
+export async function handler(dispatch: AppDispatch) {
   const promiseArr = await Promise.all([
     getOneUser(1),
     getAllProducts(),

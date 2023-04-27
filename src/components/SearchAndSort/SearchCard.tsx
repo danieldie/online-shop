@@ -22,6 +22,7 @@ let SearchCard: React.FC<{
 
   useEffect(() => {
     if (search.length !== 0) {
+      // eslint-disable-next-line no-var
       var timer = setTimeout(async () => {
         dispatch(setSerachedProducts({ productApi, search }))
       }, 1000)

@@ -10,11 +10,11 @@ let SortCards: React.FC<{
   productApi: Card[]
   allCategoriesApi: string[]
   productList: Card[]
-}> = (props) => {
+}> = ({productApi, allCategoriesApi, productList}) => {
   const dispatch = useAppDispatch()
-  const list = ['all categories', ...props.allCategoriesApi]
+  const list = ['all categories', ...allCategoriesApi]
   const uniqueCurrentCategories = new Set(
-    props.productList.map((p) => p.category)
+    productList.map((p) => p.category)
   )
   const categoryName = useRef<string>(
     uniqueCurrentCategories.size === 1
@@ -50,10 +50,10 @@ let SortCards: React.FC<{
       category === 'all categories' ||
       !list.includes(category.toLowerCase())
     ) {
-      dispatch(setAllProducts({ productApi: props.productApi }))
+      dispatch(setAllProducts({ productApi: productApi }))
       categoryName.current = list[0]
     } else {
-      dispatch(setSortedProducts({ productApi: props.productApi, category }))
+      dispatch(setSortedProducts({ productApi: productApi, category }))
       categoryName.current = category
     }
     revealDropdownRef.current = true
@@ -77,7 +77,7 @@ let SortCards: React.FC<{
         className='hidden dropdown-menu absolute transition-all top-16 right-0 '
         id='dropdown-ul'
       >
-        {list!.map((i) => (
+        {list.map((i) => (
           <li key={i}>
             <button
               className='capitalize w-full bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap'
