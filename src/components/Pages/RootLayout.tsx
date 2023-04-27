@@ -18,8 +18,6 @@ import { AppDispatch } from '../../store'
 const RootLayout: React.FC = () => {
   const { userApi } = useLoaderData() as { userApi: User }
 
-  console.log('RootLayout')
-
   const { cart } = useAppSelector((state) => state)
 
   return (
