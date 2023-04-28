@@ -1,7 +1,7 @@
 {
   "name": "online-shop",
   "version": "0.1.0",
-  "homepage":"https://sahandsn.github.io/online-shop",
+  "homepage":"https://sahandsn.github.io/online-shop/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
