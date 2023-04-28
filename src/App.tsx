@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import RootLayout, {
   handler as rootHandler,
 } from './components/Pages/RootLayout'
@@ -8,7 +8,7 @@ import Error from './components/Pages/Error'
 import { Provider } from 'react-redux'
 import store, { dispatch } from './store'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <RootLayout />,
