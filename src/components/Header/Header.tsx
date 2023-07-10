@@ -36,7 +36,7 @@ let Header: React.FC<{ cart: Cart[]; userApi: User }> = (props) => {
               Cart
             </p>
             <div
-              className='text-white bg-red-600 circle flex items-center justify-center'
+              className='text-white bg-blue-600 circle flex items-center justify-center'
               id='cart-number'
             >
               {cartQuantity}
