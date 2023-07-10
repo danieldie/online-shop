@@ -54,7 +54,7 @@ jobs:
         with:
           severity: info
           text: A new version of online-shop deployed!
-          details: to ${{github.event.pull_request.base.repo.homepage}} by ${{github.triggering_actor}}
+          details: to ${{github.event.repository.homepage}} by ${{github.triggering_actor}}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
