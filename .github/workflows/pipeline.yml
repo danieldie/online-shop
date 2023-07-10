@@ -40,11 +40,11 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
       - name: Deploy
-        if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+        if: ${{ github.event_name == 'push'}}
         uses: crazy-max/ghaction-github-pages@v3
         with:
             target_branch: gh-pages
-            build_dir: public
+            build_dir: build
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
