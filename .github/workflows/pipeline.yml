@@ -53,7 +53,7 @@ jobs:
           checkout: false
       
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+        if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') && success() }}
         uses: anothrNick/github-tag-action@1.67.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
