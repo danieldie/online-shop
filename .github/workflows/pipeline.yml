@@ -8,6 +8,11 @@ on:
     branches: [master]
     types: [opened, synchronize]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deployment_pipeline:
     runs-on: ubuntu-20.04
