@@ -44,7 +44,7 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v3
         with:
             target_branch: gh-pages
-            build_dir: build
+            build_dir: public
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -54,7 +54,7 @@ jobs:
         with:
           severity: info
           text: A new version of online-shop deployed!
-          details: to ${{github.event.pull_request.base.repo.homepage}} by ${{github.triggering_actor}}
+          details: to ${{github.event.repository.homepage}} by ${{github.triggering_actor}}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
