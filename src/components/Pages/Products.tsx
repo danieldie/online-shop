@@ -18,7 +18,7 @@ const Products: React.FC = () => {
 
   return (
     <>
-      <SearchAndSort />
+      {/* <SearchAndSort /> */}
       <CardList productList={products} />
     </>
   );
